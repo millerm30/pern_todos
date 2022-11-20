@@ -1,26 +1,13 @@
 import React, { useState } from 'react';
-import { MdDeleteForever } from 'react-icons/md';
 import { MdModeEdit } from 'react-icons/md';
 import { GiCheckMark } from 'react-icons/gi';
 import toast, { Toaster } from 'react-hot-toast';
+import DeleteTodo from './DeleteTodo';
 
 const AllTodos = ({todos, setTodos }) => {
   const [editable, setEditable] = useState(false);
   const [editTodo, setEditTodo] = useState("");
   const [id, setId] = useState("");
-  
-  const deleteTodo = async (id) => {
-    try {   
-      await fetch(`http://localhost:3010/api/todos/${id}`, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' }
-      });
-      setTodos(todos.filter(todo => todo.id !== id));
-      toast.success('Todo deleted!');
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
 
   const editTodoDescription = async (id) => {
     try {
@@ -70,9 +57,7 @@ const AllTodos = ({todos, setTodos }) => {
                     <MdModeEdit className='text-blue-500 text-xl hover:text-blue-700' />
                   </button>
                 )}
-                <button onClick={() => deleteTodo(todo.id)}>
-                  <MdDeleteForever className='text-red-500 text-xl hover:text-red-700' />
-                </button>
+                <DeleteTodo todo={todo} todos={todos} setTodos={setTodos} />                
               </div>
             </li>
           ))}
