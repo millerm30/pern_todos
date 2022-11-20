@@ -9,7 +9,7 @@ const App = () => {
 
   const getAllTodos = async () => {
     try {
-      const response = await fetch("http://localhost:3010/api/todos");
+      const response = await fetch('http://localhost:3010/api/todos');
       const jsonData = await response.json();
       setTodos(jsonData);
     } catch (err) {
@@ -23,7 +23,7 @@ const App = () => {
 
   return (
     <>
-      <h1 className="text-center text-4xl font-bold m-5">🔖 Todo List 📑</h1>
+      <h1 className='text-center text-4xl font-bold m-5'>🔖 Todo List 📑</h1>
       <AddTodo setNewTodo={setNewTodo} newTodo={newTodo} />
       <AllTodos todos={todos} setTodos={setTodos} />
       <ScrollToTop />
