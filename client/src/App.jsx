@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import AllTodos from './components/AllTodos';
 import AddTodo from './components/CreateTodo';
+import ScrollToTop from './components/ScrollToTop';
 
 const App = () => {
   const [todos, setTodos] = useState([]);
@@ -22,9 +23,10 @@ const App = () => {
 
   return (
     <>
-      <h1 className="text-center text-4xl font-bold m-5">Todo List</h1>
+      <h1 className="text-center text-4xl font-bold m-5">🔖 Todo List 📑</h1>
       <AddTodo setNewTodo={setNewTodo} newTodo={newTodo} />
       <AllTodos todos={todos} setTodos={setTodos} />
+      <ScrollToTop />
     </>
   );
 };

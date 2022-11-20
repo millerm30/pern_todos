@@ -40,55 +40,48 @@ const AllTodos = ({todos, setTodos }) => {
 
   return (
     <>
-      {todos.map((todo) => (
-        <div
-          key={todo.id}
-          className="flex justify-between bg-white w-11/12 ml-auto mr-auto my-2 py-2 border-t-2 border-b-2 md:w-:1/2 lg:w-1/3"
-        >
-          <div className="w-full">
-            {editable && id === todo.id ? (
-              <input
-                className="border-2 rounded-md p-1 ml-1 w-full"
-                type="text"
-                value={editTodo}
-                onChange={(e) => setEditTodo(e.target.value)}
-              />
-            ) : (
-              <p className="px-2 self-center">{todo.description}</p>
-            )}
-          </div>
-          <div className="flex">
-            {editable && id === todo.id ? (
-              <button
-                className="px-2 text-2xl text-black hover:text-green-700"
-                onClick={() => editTodoDescription(todo.id)}
-              >
-                <GiCheckMark />
-              </button>
-            ) : (
-              <button
-                className="px-2 text-2xl text-black hover:text-blue-700"
-                onClick={() => {
-                  setEditable(true);
-                  setId(todo.id);
-                  setEditTodo(todo.description);
-                }}
-              >
-                <MdModeEdit />
-              </button>
-            )}
-            <button
-              className="px-2 text-2xl text-black hover:text-red-700"
-              onClick={() => deleteTodo(todo.id)}
-            >
-              <MdDeleteForever />
-            </button>
-          </div>
-        </div>
-      ))}
-      <Toaster />
+    {todos.length === 0 ? 
+      <div className='w-11/12 flex flex-col ml-auto mr-auto border-2 py-4 px-6 rounded-xl shadow-md bg-white mb-6 md:w-1/2 lg:w-1/3'>
+        <h2 className="text-xl text-center">📎Nothing added to your list! 📓 </h2>
+      </div> : (
+      <div className='w-11/12 flex flex-col ml-auto mr-auto border-2 py-4 px-6 rounded-xl shadow-md bg-white mb-6 md:w-1/2 lg:w-1/3'>
+        <h1 className='text-xl font-bold'>All Todos</h1>
+        <ul className='mt-4'>
+          {todos.map(todo => (
+            <li key={todo.id} className='flex justify-between items-center border-b-2 py-2'>
+              <div className='flex items-center w-full'>
+                {editable && id === todo.id ? (
+                  <input type='text' className='mr-2 w-full' value={editTodo} onChange={e => setEditTodo(e.target.value)} />
+                ) : (
+                  <p className=''>{todo.description}</p>
+                )}
+              </div>
+              <div className='flex items-center'>
+                {editable && id === todo.id ? (
+                  <button className='mr-2' onClick={() => editTodoDescription(todo.id)}>
+                    <GiCheckMark className='text-green-500 text-xl hover:text-green-700' />
+                  </button>
+                ) : (
+                  <button className='mr-2' onClick={() => {
+                    setEditable(true);
+                    setEditTodo(todo.description);
+                    setId(todo.id);
+                  }}>
+                    <MdModeEdit className='text-blue-500 text-xl hover:text-blue-700' />
+                  </button>
+                )}
+                <button onClick={() => deleteTodo(todo.id)}>
+                  <MdDeleteForever className='text-red-500 text-xl hover:text-red-700' />
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <Toaster />
+      </div>
+      )
+      }
     </>
-  );
-};
+  )};
 
 export default AllTodos;
