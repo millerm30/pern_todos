@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { MdDeleteForever } from 'react-icons/md';
 import { MdModeEdit } from 'react-icons/md';
 import { GiCheckMark } from 'react-icons/gi';
+import toast, { Toaster } from 'react-hot-toast';
 
 const AllTodos = ({todos, setTodos }) => {
   const [editable, setEditable] = useState(false);
@@ -15,6 +16,7 @@ const AllTodos = ({todos, setTodos }) => {
         headers: { 'Content-Type': 'application/json' }
       });
       setTodos(todos.filter(todo => todo.id !== id));
+      toast.success('Todo deleted!');
     } catch (error) {
       console.error(error.message);
     }
@@ -30,6 +32,7 @@ const AllTodos = ({todos, setTodos }) => {
       });
       setTodos(todos.map(todo => todo.id === id ? { ...todo, description: editTodo } : todo));
       setEditable(false);
+      toast.success('Todo updated!');
     } catch (error) {
       console.error(error.message);
     }
@@ -83,6 +86,7 @@ const AllTodos = ({todos, setTodos }) => {
           </div>
         </div>
       ))}
+      <Toaster />
     </>
   );
 };

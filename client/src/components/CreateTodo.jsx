@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
 const CreateTodo = ({ setNewTodo }) => {
   const [ inputs, setInputs ] = useState({
@@ -26,6 +27,7 @@ const CreateTodo = ({ setNewTodo }) => {
       const jsonData = await response.json();
       setNewTodo(jsonData);
       setStatus("Add");
+      toast.success(`${description} added to the list!`);
     } catch (err) {
       console.error(err.message);
     }
@@ -51,6 +53,7 @@ const CreateTodo = ({ setNewTodo }) => {
           {status}
         </button>
       </form>
+      <Toaster />
     </div>
   )
 };
