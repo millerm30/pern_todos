@@ -17,7 +17,7 @@ database.authenticate().then(() => {
   console.log('Error: ' + err);
 });
 
-app.use('/api', require('./routes/todoRoutes'));
+app.use('/api', require('./routes/crudRoutes'));
 
 database.sync().then(() => {
   app.listen(PORT,
